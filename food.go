@@ -37,11 +37,18 @@ func FetchRestaurants() (*Restaurants, error) {
 	weekDay := weekDays[t.Weekday()]
 	year := t.Year()
 
-	addr := fmt.Sprintf("https://unisafka.fi/static/json/%d/%d/1/%s.json", year, weekNumber, weekDay)
+	var res *http.Response
+	for i := 12; i > 0; i-- {
+		addr := fmt.Sprintf("https://unisafka.fi/static/json/%d/%d/%d/%s.json", year, weekNumber, i, weekDay)
+	
+		res, err := http.Get(addr)
+		if err != nil {
+			return nil, err
+		}
 
-	res, err := http.Get(addr)
-	if err != nil {
-		return nil, err
+		if res.StatusCode != 404 {
+			break
+		}
 	}
 
 	var sr SafkaResponse
