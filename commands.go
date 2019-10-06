@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"github.com/timojarv/orjabot/data"
 )

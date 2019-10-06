@@ -61,13 +61,13 @@ func (m *migration) Do(reapply bool) error {
 		}
 	}
 	n, err := migrate.Exec(db, m.driver, m.migrations, migrate.Up)
-	log.Infof("executed %d migrations", n)
+	log.Printf("executed %d migrations\n", n)
 	return err
 }
 
 // Reset resets the database
 func (m *migration) Reset() error {
 	n, err := migrate.Exec(m.db, m.driver, m.migrations, migrate.Down)
-	log.Infof("database reset, rolled back %d steps", n)
+	log.Printf("database reset, rolled back %d steps\n", n)
 	return err
 }
