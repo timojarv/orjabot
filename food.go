@@ -38,10 +38,11 @@ func FetchRestaurants() (*Restaurants, error) {
 	year := t.Year()
 
 	var res *http.Response
+	var err error
 	for i := 12; i > 0; i-- {
 		addr := fmt.Sprintf("https://unisafka.fi/static/json/%d/%d/%d/%s.json", year, weekNumber, i, weekDay)
 	
-		res, err := http.Get(addr)
+		res, err = http.Get(addr)
 		if err != nil {
 			return nil, err
 		}
@@ -61,7 +62,7 @@ func FetchRestaurants() (*Restaurants, error) {
 
 	for _, v := range sr.Restaurants {
 		for i, m := range v.Meals {
-			v.Meals[i].Price, err = strconv.ParseFloat(
+			v.Meals[i].Price, _ = strconv.ParseFloat(
 				strings.ReplaceAll(strings.Split(m.PriceString, " ")[0], ",", "."),
 				64)
 		}
