@@ -1,6 +1,6 @@
 FROM golang:1
 
-WORKDIR /go/src/orjabot
+WORKDIR /go/src/github.com/timojarv/orjabot
 
 ADD . .
 
