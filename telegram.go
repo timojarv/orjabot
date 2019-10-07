@@ -33,11 +33,11 @@ func RunBot() {
 		name := update.Message.From.FirstName + " " + update.Message.From.LastName
 		chatID := strconv.Itoa(int(update.Message.Chat.ID))
 
-		log.Printf("#%s [@%s - %s] %s", chatID, update.Message.From.UserName, name, update.Message.Text)
+		log.Printf("#%s (%s) [@%s - %s] %s", chatID, update.Message.Chat.Title, update.Message.From.UserName, name, update.Message.Text)
 
 		// This bot automatically keeps a list of group members
 		if update.Message.From.UserName != "" {
-			data.AddMember(update.Message.Chat.ID, "@" + update.Message.From.UserName)
+			data.AddMember(update.Message.Chat.ID, "@"+update.Message.From.UserName)
 		}
 
 		// Command handling
@@ -48,6 +48,10 @@ func RunBot() {
 			handleHattu(bot, update.Message)
 		case "nostot":
 			handleNostot(bot, update.Message)
+		case "uusikeitto":
+			handleKeitto(bot, update.Message)
+		case "keitot":
+			handleKeitot(bot, update.Message)
 		default:
 		}
 	}

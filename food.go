@@ -41,7 +41,7 @@ func FetchRestaurants() (*Restaurants, error) {
 	var err error
 	for i := 12; i > 0; i-- {
 		addr := fmt.Sprintf("https://unisafka.fi/static/json/%d/%d/%d/%s.json", year, weekNumber, i, weekDay)
-	
+
 		res, err = http.Get(addr)
 		if err != nil {
 			return nil, err
