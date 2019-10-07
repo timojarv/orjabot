@@ -27,7 +27,7 @@ func handleHattu(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 		return
 	}
 
-	if name == msg.From.FirstName + " " + msg.From.LastName {
+	if name == "@" + msg.From.UserName {
 		sendMsg(bot, msg.Chat.ID, "Juu ei :D")
 		return
 	}
