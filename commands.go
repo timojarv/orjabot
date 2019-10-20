@@ -19,8 +19,10 @@ func sendMsg(bot *tgbotapi.BotAPI, id int64, msg string) {
 func handleHattu(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 	name := msg.CommandArguments()
 
-	if name == "orja" || name == "Orja" {
-		sendMsg(bot, msg.Chat.ID, "Voi juku, kiitosta.")
+	if name == "orja" || name == "Orja" || name == "@unisafkabot" {
+		newPhoto := tgbotapi.NewPhotoUpload(msg.Chat.ID, "./hattu.jpg")
+		bot.Send(newPhoto)
+		data.AddNosto(msg.Chat.ID, "orja")
 		return
 	}
 
@@ -64,7 +66,7 @@ func handleSafkaa(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 	if err != nil {
 		return
 	}
-	
+
 	rs.Filter([]string{"Reaktori", "Newton", "Hertsi", "Café Konehuone Såås Bar"})
 
 	sendMsg(bot, msg.Chat.ID, rs.String())
@@ -96,12 +98,12 @@ func handleKeitto(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 	date = time.Date(date.Year(), date.Month(), date.Day(), 23, 59, 59, 0, time.Local)
 
 	err = data.AddKeitto(msg.Chat.ID, data.Keitto{
-		Name:  args[2],
-		Date:  date.Unix(),
+		Name:        args[2],
+		Date:        date.Unix(),
 		KeittoIndex: index,
 	})
 
-	responses := []string{"Asia kunnossa!", "Homma okei.", "Juoma kirkas!", "Job is bueno!", "Käskystä"}
+	responses := []string{"Asia kunnossa!", "Homma okei.", "Juoma kirkas!", "Job is bueno!", "Käskystä", "Keittovuori kasvaa!"}
 
 	if err != nil {
 		sendMsg(bot, msg.Chat.ID, err.Error())
@@ -126,4 +128,18 @@ func handleKeitot(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 	}
 
 	sendMsg(bot, msg.Chat.ID, response)
+}
+
+func handleMoti(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
+	bot.Send(moti(msg))
+}
+
+func handleKiitos(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
+	kiitokset, err := data.AddKiitos()
+	if err != nil {
+		sendMsg(bot, msg.Chat.ID, err.Error())
+		return
+	}
+
+	sendMsg(bot, msg.Chat.ID, fmt.Sprintf("Kiitosta! Orja on koettu hyödylliseksi %d kertaa.", kiitokset))
 }

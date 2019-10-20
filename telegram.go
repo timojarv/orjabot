@@ -52,6 +52,8 @@ func RunBot() {
 			handleKeitto(bot, update.Message)
 		case "keitot":
 			handleKeitot(bot, update.Message)
+		case "moti":
+			handleMoti(bot, update.Message)
 		default:
 		}
 	}
