@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"github.com/timojarv/orjabot/data"
@@ -35,6 +36,17 @@ func RunBot() {
 
 		log.Printf("#%s (%s) [@%s - %s] %s", chatID, update.Message.Chat.Title, update.Message.From.UserName, name, update.Message.Text)
 
+		// This bot persists messages
+		msg := data.Message{
+			Chat:      chatID,
+			Message:   update.Message.Text,
+			Username:  update.Message.From.UserName,
+			Author:    name,
+			Timestamp: time.Now(),
+		}
+
+		data.SaveMessage(msg)
+
 		// This bot automatically keeps a list of group members
 		if update.Message.From.UserName != "" {
 			data.AddMember(update.Message.Chat.ID, "@"+update.Message.From.UserName)
@@ -54,6 +66,8 @@ func RunBot() {
 			handleKeitot(bot, update.Message)
 		case "moti":
 			handleMoti(bot, update.Message)
+		case "kiitos":
+			handleKiitos(bot, update.Message)
 		default:
 		}
 	}
