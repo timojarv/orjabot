@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import * as api from './api';
 import GroupSelector from './GroupSelector';
 import Chats from './Chats';
+import Soups from './Soups';
 
 export const GroupContext = React.createContext(false);
 
@@ -35,19 +36,19 @@ const App = props => {
 							<Link to="/chats">
 								<Button minimal icon="chat" text="Chatit" />
 							</Link>
-							<Button minimal disabled icon="briefcase" text="Soppa" />
+							<Link to="/soups">
+								<Button minimal icon="briefcase" text="Soppa" />
+							</Link>
 							<Button minimal disabled icon="feed" text="Tiedotus" />
 						</Navbar.Group>
 						<Navbar.Group align={Alignment.RIGHT}>
-							<GroupSelector onChange={groupID => setGroup(groupID)} />
-							{/* <Navbar.Divider />
-							<em>{user.displayName}</em>
+							<GroupSelector user={user} onChange={groupID => setGroup(groupID)} />
 							<Navbar.Divider />
 							{
 								user
 									? <Button onClick={handleLogout} minimal icon="log-out" text="Kirjaudu ulos" />
 									: <Button onClick={handleLogin} minimal icon="log-in" text="Kirjaudu sisään" />
-							} */}
+							}
 						</Navbar.Group>
 					</Navbar>
 					<Switch>
@@ -59,6 +60,7 @@ const App = props => {
 						</Route>
 
 						<Route path="/chats" component={Chats} />
+						<Route path="/soups" component={Soups} />
 					</Switch>
 				</Router>
 			</GroupContext.Provider>

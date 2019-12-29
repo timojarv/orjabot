@@ -12,7 +12,7 @@ const GroupSelector = props => {
     useEffect(() => {
         db.collection('groups').get()
             .then(qs => setGroups(qs.docs.map(doc => doc.id)));
-    }, [setGroups])
+    }, [setGroups, props])
 
     return (
         <Popover content={

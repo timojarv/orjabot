@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { GroupContext } from './App';
 import { db } from './api';
-import { Card, Elevation, H3, H5, Text } from '@blueprintjs/core';
+import { Card, Elevation, H3, Text } from '@blueprintjs/core';
 
 const Chats = props => {
     const [chats, setChats] = useState([]);
@@ -33,7 +33,7 @@ const Chats = props => {
             {!chats && 'Ladataan...'}
             <div style={{ maxHeight: 600, overflow: 'scroll', padding: 16 }}>
                 {([...chats].reverse()).map((msg, i) => (
-                    <Card style={{ marginTop: 16 }} elevation={Elevation.ONE}>
+                    <Card key={i} style={{ marginTop: 16 }} elevation={Elevation.ONE}>
                         <strong>{msg.author}</strong>
                         <Text className="bp3-text-small bp3-text-muted">{new Date(msg.timestamp * 1000).toLocaleString()}</Text>
                         {msg.message || <em className="bp3-text-muted">Ei viestiä</em>}
