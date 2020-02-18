@@ -39,7 +39,7 @@ func FetchRestaurants() (*Restaurants, error) {
 
 	var res *http.Response
 	var err error
-	for i := 12; i > 0; i-- {
+	for i := 24; i > 0; i-- {
 		addr := fmt.Sprintf("https://unisafka.fi/static/json/%d/%d/%d/%s.json", year, weekNumber, i, weekDay)
 
 		res, err = http.Get(addr)
@@ -82,7 +82,7 @@ func (m Meal) String() string {
 	food := strings.Join(parts, ", ")
 
 	//return fmt.Sprintf("%s (%.2f€)", food, m.Price)
-	if m.Price == float64(2.6) {
+	if m.Price == float64(2.6) || m.Price == float64(0) {
 		return food
 	}
 

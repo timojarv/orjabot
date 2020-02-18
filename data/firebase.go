@@ -19,7 +19,7 @@ func init() {
 	opt := option.WithCredentialsJSON([]byte(os.Getenv("FIREBASE_SA")))
 	app, err := firebase.NewApp(ctx, nil, opt)
 	if err != nil {
-		log.Fatal("error initializing app: %v", err)
+		log.Fatalf("error initializing app: %v", err)
 	}
 
 	fs, err = app.Firestore(ctx)

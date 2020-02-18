@@ -67,7 +67,7 @@ func handleSafkaa(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 		return
 	}
 
-	rs.Filter([]string{"Reaktori", "Newton", "Hertsi", "Café Konehuone Såås Bar"})
+	rs.Filter([]string{"Reaktori", "Newton", "Hertsi", "Café Konehuone Såås Bar", "Reaktori (iltaruoka)"})
 
 	sendMsg(bot, msg.Chat.ID, rs.String())
 }
