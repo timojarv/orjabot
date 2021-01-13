@@ -82,7 +82,7 @@ func (m Meal) String() string {
 	food := strings.Join(parts, ", ")
 
 	//return fmt.Sprintf("%s (%.2f€)", food, m.Price)
-	if m.Price == float64(2.6) || m.Price == float64(0) {
+	if m.Price == float64(2.7) || m.Price == float64(3.06) || m.Price == float64(0) {
 		return food
 	}
 
