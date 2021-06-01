@@ -74,6 +74,8 @@ func RunBot() {
 			handleMoti(bot, update.Message)
 		case "kiitos":
 			handleKiitos(bot, update.Message)
+		case "keittokeittokeitto":
+			handle3Keitto(bot, update.Message)
 		default:
 		}
 	}

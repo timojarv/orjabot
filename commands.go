@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"strconv"
 	"strings"
 	"time"
@@ -140,4 +141,15 @@ func handleKiitos(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 	}
 
 	sendMsg(bot, msg.Chat.ID, fmt.Sprintf("Kiitosta! Orja on koettu hyödylliseksi %d kertaa.", kiitokset))
+}
+
+func handle3Keitto(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
+	tyyppi := "Pikku"
+	if rand.Intn(2) == 1 {
+		tyyppi = "Iso"
+	}
+
+	keitto := []string{"keitto", "märkä", "märpqä", "soppa"}[rand.Intn(4)]
+
+	sendMsg(bot, msg.Chat.ID, fmt.Sprintf("%s %s!", tyyppi, keitto))
 }
