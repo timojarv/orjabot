@@ -10,6 +10,8 @@ import (
 	"github.com/timojarv/orjabot/data"
 )
 
+const Sopqa int64 = -1001412227493
+
 // RunBot runs the bot
 func RunBot() {
 	token := os.Getenv("TG_API_TOKEN")
@@ -21,10 +23,14 @@ func RunBot() {
 
 	log.Printf("Authorized on Telegram account %s", bot.Self.UserName)
 
+	go RockYourDayEveryDay(bot)
+
+	sendMsg(bot, Sopqa, "Kiitos ryhmään pääsystä")
+
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
-	updates, err := bot.GetUpdatesChan(u)
+	updates, _ := bot.GetUpdatesChan(u)
 
 	for update := range updates {
 		if update.Message == nil { // ignore any non-Message Updates
@@ -70,5 +76,17 @@ func RunBot() {
 			handleKiitos(bot, update.Message)
 		default:
 		}
+	}
+}
+
+func RockYourDayEveryDay(bot *tgbotapi.BotAPI) {
+	helsinki, _ := time.LoadLocation("Europe/Helsinki")
+	for {
+		if hour, min, _ := time.Now().In(helsinki).Clock(); hour == 6 && min == 0 {
+			sendMsg(bot, Sopqa, "Rock your day!")
+			time.Sleep(23 * time.Hour)
+		}
+
+		time.Sleep(30 * time.Second)
 	}
 }

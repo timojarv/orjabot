@@ -57,8 +57,6 @@ func handleNostot(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
 		sendMsg(bot, msg.Chat.ID, newMessage)
 		return
 	}
-
-	sendMsg(bot, msg.Chat.ID, newMessage)
 }
 
 func handleSafkaa(bot *tgbotapi.BotAPI, msg *tgbotapi.Message) {
